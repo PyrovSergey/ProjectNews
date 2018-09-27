@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="title_news">News</string>
+    <string name="title_categories">Categories</string>
+    <string name="title_bookmarks">Bookmarks</string>
+
+    <string-array name="tab_array">
+        <item>General</item>
+        <item>Entertainment</item>
+        <item>Sports</item>
+        <item>Technology</item>
+        <item>Science</item>
+        <item>Health</item>
+        <item>Business</item>
+    </string-array>
+</resources>
