@@ -9,9 +9,16 @@
     tools:showIn="@layout/activity_news">
 
     <FrameLayout
-        android:id="@+id/navigation_content"
+        android:id="@+id/navigationContentFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:foregroundGravity="center" />
+
+    <FrameLayout
+        android:id="@+id/searchContentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundGravity="center"
+        android:visibility="invisible"/>
 
 </android.support.constraint.ConstraintLayout>
