@@ -4,6 +4,6 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 
 @InjectViewState
-class FragmentPresenter : MvpPresenter<FragmentView>() {
+class HeadPresenter: MvpPresenter<HeadView>() {
 
 }

@@ -1,26 +1,38 @@
 package ru.pyrovsergey.news.model.network
 
-import android.widget.Toast
+import android.annotation.SuppressLint
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import ru.pyrovsergey.news.App
+import ru.pyrovsergey.news.fragments.NetworkDataCategoryListeners
+import ru.pyrovsergey.news.fragments.NetworkDataNewsListener
+import ru.pyrovsergey.news.model.dto.Model
 import java.util.*
 
 class NetworkData {
-    private var disposable: Disposable? = null
 
     private val googleApi by lazy {
         GoogleApi.create()
     }
 
-    fun getTopLinesNews() {
-        disposable = googleApi.getAllHeadlinesNews(getLocal(), 20, "")
+    @SuppressLint("CheckResult")
+    fun getTopLinesNews(newsListener: NetworkDataNewsListener) {
+        googleApi.getAllHeadlinesNews(getLocal(), 100, Companion.key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> Toast.makeText(App.context, result.articles!![0].toString(), Toast.LENGTH_LONG).show() },
-                        { error -> Toast.makeText(App.context, error.message, Toast.LENGTH_LONG).show() }
+                        { result -> newsListener.onSuccess(result.articles as List<Model.ArticlesItem>) },
+                        { error -> newsListener.onError(error.message!!) }
+                )
+    }
+
+    @SuppressLint("CheckResult")
+    fun getCategoryArticles(category: String, newsListener: NetworkDataCategoryListeners, page: Int) {
+        googleApi.getInCategoryHeadlinesNews(getLocal(), 100, category, Companion.key)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result -> newsListener.onSuccess(result.articles as List<Model.ArticlesItem>, page) },
+                        { error -> newsListener.onError(error.message!!) }
                 )
     }
 
@@ -28,5 +40,8 @@ class NetworkData {
 
     private fun getLanguage() = Locale.getDefault().language
 
+    companion object {
+        const val key = ""
+    }
 
 }

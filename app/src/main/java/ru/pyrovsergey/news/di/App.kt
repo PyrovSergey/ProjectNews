@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news
+package ru.pyrovsergey.news.di
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -7,7 +7,9 @@ import android.net.ConnectivityManager
 
 
 class App : Application() {
+
     companion object {
+        lateinit var component: AppComponent
         @SuppressLint("StaticFieldLeak")
         lateinit var instance: App
         @SuppressLint("StaticFieldLeak")
@@ -16,8 +18,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
         context = applicationContext
+        instance = this
+        component = DaggerAppComponent.create()
     }
 
     fun isInternetAvailable(): Boolean {

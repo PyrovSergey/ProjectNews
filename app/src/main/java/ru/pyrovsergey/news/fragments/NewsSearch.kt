@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.pyrovsergey.news.R
-import ru.pyrovsergey.news.presenter.FragmentPresenter
-import ru.pyrovsergey.news.presenter.FragmentView
+import ru.pyrovsergey.news.presenter.NewsPresenter
 
-class FragmentSearch: MvpAppCompatFragment(), FragmentView {
-    @InjectPresenter
-    lateinit var presenter: FragmentPresenter
+class NewsSearch : MvpAppCompatFragment() {
 
     companion object {
-        fun newInstance(): FragmentSearch {
-            val fragmentSearch = FragmentSearch()
+        fun newInstance(): NewsSearch {
+            val fragmentSearch = NewsSearch()
             val args = Bundle()
             fragmentSearch.arguments = args
             return fragmentSearch

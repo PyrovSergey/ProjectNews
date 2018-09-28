@@ -19,21 +19,19 @@ import kotlinx.android.synthetic.main.navigation_content_main.*
 import ru.pyrovsergey.news.fragments.FragmentBookmarks
 import ru.pyrovsergey.news.fragments.FragmentCategory
 import ru.pyrovsergey.news.fragments.FragmentNews
-import ru.pyrovsergey.news.fragments.FragmentSearch
-import ru.pyrovsergey.news.presenter.NewsPresenter
-import ru.pyrovsergey.news.presenter.NewsView
+import ru.pyrovsergey.news.fragments.NewsSearch
+import ru.pyrovsergey.news.presenter.HeadPresenter
+import ru.pyrovsergey.news.presenter.HeadView
 
-class NewsActivity : MvpAppCompatActivity(), NewsView {
+class MainActivity : MvpAppCompatActivity(), HeadView {
 
     @InjectPresenter
-    lateinit var presenter: NewsPresenter
+    lateinit var presenter: HeadPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         initialization()
-
-//        var network = NetworkData()
     }
 
 
@@ -53,8 +51,8 @@ class NewsActivity : MvpAppCompatActivity(), NewsView {
         val searchCloseIcon = searchView.findViewById<ImageView>(android.support.v7.appcompat.R.id.search_close_btn)
         searchCloseIcon.setImageResource(R.drawable.ic_close_black_24dp)
         val searchEditText = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
-        searchEditText.setTextColor(resources.getColor(R.color.colorBlack))
-        searchEditText.setHintTextColor(resources.getColor(R.color.colorBlackOverlay))
+        searchEditText.setTextColor(getColor(R.color.colorBlack))
+        searchEditText.setHintTextColor(getColor(R.color.colorBlackOverlay))
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
@@ -95,7 +93,7 @@ class NewsActivity : MvpAppCompatActivity(), NewsView {
             R.id.navigation_category -> {
                 val fragment = FragmentCategory()
                 replaceFragment(fragment)
-                toolbarTitle?.setText(R.string.title_categories)
+                //toolbarTitle?.setText(R.string.title_categories)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_bookmarks -> {
@@ -117,7 +115,7 @@ class NewsActivity : MvpAppCompatActivity(), NewsView {
     }
 
     private fun addSearchFragment() {
-        val fragment = FragmentSearch.newInstance()
+        val fragment = NewsSearch.newInstance()
         navigation.visibility = View.GONE
         navigationContentFrame.visibility = View.INVISIBLE
         searchContentFrame.visibility = View.VISIBLE

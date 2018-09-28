@@ -1,19 +1,28 @@
 package ru.pyrovsergey.news.fragments
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import ru.pyrovsergey.news.ArticlesFragmentAdapter
 import ru.pyrovsergey.news.R
-import ru.pyrovsergey.news.presenter.FragmentPresenter
-import ru.pyrovsergey.news.presenter.FragmentView
+import ru.pyrovsergey.news.presenter.NewsPresenter
+import ru.pyrovsergey.news.presenter.NewsView
 
-class FragmentNews : MvpAppCompatFragment(), FragmentView {
+class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefreshListener {
 
     @InjectPresenter
-    lateinit var presenter: FragmentPresenter
+    lateinit var presenter: NewsPresenter
+    private lateinit var manager: LinearLayoutManager
+    private lateinit var recycler: RecyclerView
+    private lateinit var adapter: ArticlesFragmentAdapter
+    private lateinit var swipe: SwipeRefreshLayout
 
     companion object {
         fun newInstance(): FragmentNews {
@@ -29,10 +38,36 @@ class FragmentNews : MvpAppCompatFragment(), FragmentView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        val view = inflater.inflate(R.layout.fragment_news, container, false)
+        swipe = view.findViewById(R.id.news_swipe_refresh_layout)
+        swipe.setOnRefreshListener(this)
+        recycler = view.findViewById(R.id.news_recycler)
+        recycler.setHasFixedSize(true)
+        manager = LinearLayoutManager(context)
+        recycler.layoutManager = manager
+        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
+        recycler.adapter = adapter
+        presenter.getDataTopLinesNews()
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun updateListArticles() {
+        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
+        adapter.notifyDataSetChanged()
+        recycler.adapter = adapter
+        swipe.isRefreshing = false
+    }
+
+    override fun onRefresh() {
+        presenter.getDataTopLinesNews()
+    }
+
+    override fun showErrorMessage(error: String) {
+        Toast.makeText(context, "Error!!! " + error, Toast.LENGTH_SHORT).show()
+        swipe.isRefreshing = false
     }
 }
