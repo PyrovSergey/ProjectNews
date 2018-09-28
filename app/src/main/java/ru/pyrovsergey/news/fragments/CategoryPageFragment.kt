@@ -1,15 +1,22 @@
 package ru.pyrovsergey.news.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.pyrovsergey.news.R
+import ru.pyrovsergey.news.presenter.FragmentPresenter
+import ru.pyrovsergey.news.presenter.FragmentView
 
-class CategoryPageFragment : Fragment() {
+class CategoryPageFragment : MvpAppCompatFragment(), FragmentView {
+
+    @InjectPresenter
+    lateinit var presenter: FragmentPresenter
+
     private var mPage: Int = 0
 //    private var data: Data? = null
 
@@ -48,7 +55,7 @@ class CategoryPageFragment : Fragment() {
 
     companion object {
 
-        val ARG_PAGE = "ARG_PAGE"
+        const val ARG_PAGE = "ARG_PAGE"
 
         fun newInstance(page: Int): CategoryPageFragment {
             val bundle = Bundle()

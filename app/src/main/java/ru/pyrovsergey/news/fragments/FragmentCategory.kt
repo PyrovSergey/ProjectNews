@@ -2,15 +2,22 @@ package ru.pyrovsergey.news.fragments
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.pyrovsergey.news.App
 import ru.pyrovsergey.news.R
+import ru.pyrovsergey.news.presenter.FragmentPresenter
+import ru.pyrovsergey.news.presenter.FragmentView
 
-class FragmentDashboard: Fragment() {
+class FragmentCategory : MvpAppCompatFragment(), FragmentView {
+
+    @InjectPresenter
+    lateinit var presenter: FragmentPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

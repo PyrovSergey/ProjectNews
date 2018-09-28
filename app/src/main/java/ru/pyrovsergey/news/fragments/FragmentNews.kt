@@ -1,14 +1,19 @@
 package ru.pyrovsergey.news.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.pyrovsergey.news.R
+import ru.pyrovsergey.news.presenter.FragmentPresenter
+import ru.pyrovsergey.news.presenter.FragmentView
 
-class FragmentNews: Fragment() {
+class FragmentNews : MvpAppCompatFragment(), FragmentView {
+
+    @InjectPresenter
+    lateinit var presenter: FragmentPresenter
 
     companion object {
         fun newInstance(): FragmentNews {

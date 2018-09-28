@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="4dp"
+    card_view:cardCornerRadius="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/article_card_card_for_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="23dp"
+            card_view:cardCornerRadius="12dp">
+
+            <ImageView
+                android:id="@+id/article_card_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/test_image_2" />
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:id="@+id/article_card_button_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/article_card_card_for_image"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="104dp"
+            android:layout_marginEnd="146dp"
+            android:layout_marginBottom="-3dp"
+            android:src="@drawable/ic_more_vert_grey_600_24dp" />
+
+        <TextView
+            android:id="@+id/article_card_source_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/article_card_title"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="154dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="12sp"
+            tools:text="Vesti.ru" />
+
+        <TextView
+            android:id="@+id/article_card_title"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginEnd="130dp"
+            android:layout_marginBottom="66dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="12dp"
+            tools:text="Find X от Oppo получит рекордные 10 Гб оперативной памяти" />
+
+        <TextView
+            android:id="@+id/article_card_date_publishedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/article_card_source_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="112dp"
+            android:layout_marginBottom="25dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="10sp"
+            tools:text="01.12.2018" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

@@ -8,7 +8,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_news.*
 import ru.pyrovsergey.news.fragments.FragmentBookmarks
-import ru.pyrovsergey.news.fragments.FragmentDashboard
+import ru.pyrovsergey.news.fragments.FragmentCategory
 import ru.pyrovsergey.news.fragments.FragmentNews
 import ru.pyrovsergey.news.presenter.NewsPresenter
 import ru.pyrovsergey.news.presenter.NewsView
@@ -43,7 +43,7 @@ class NewsActivity : MvpAppCompatActivity(), NewsView {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_category -> {
-                val fragment = FragmentDashboard()
+                val fragment = FragmentCategory()
                 addFragment(fragment)
                 toolbarTitle.setText(R.string.title_categories)
                 return@OnNavigationItemSelectedListener true
