@@ -2,14 +2,14 @@ package ru.pyrovsergey.news.di
 
 import dagger.Module
 import dagger.Provides
-import ru.pyrovsergey.news.model.DataStorage
+import ru.pyrovsergey.news.model.Repository
 import javax.inject.Singleton
 
 @Module
-class DataStorageModule {
+class RepositoryModule {
     @Singleton
     @Provides
-    fun provideDataStorage(): DataStorage {
-        return DataStorage()
+    fun provideRepository(): Repository {
+        return Repository()
     }
 }

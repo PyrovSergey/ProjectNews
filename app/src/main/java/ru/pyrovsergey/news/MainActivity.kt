@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.navigation_content_main.*
 import ru.pyrovsergey.news.fragments.FragmentBookmarks
 import ru.pyrovsergey.news.fragments.FragmentCategory
 import ru.pyrovsergey.news.fragments.FragmentNews
-import ru.pyrovsergey.news.fragments.NewsSearch
+import ru.pyrovsergey.news.fragments.FragmentNewsSearch
 import ru.pyrovsergey.news.presenter.HeadPresenter
 import ru.pyrovsergey.news.presenter.HeadView
 
@@ -47,7 +47,6 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         menuInflater.inflate(R.menu.main, menu)
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
-        searchView.imeOptions = EditorInfo.IME_FLAG_FORCE_ASCII
         val searchCloseIcon = searchView.findViewById<ImageView>(android.support.v7.appcompat.R.id.search_close_btn)
         searchCloseIcon.setImageResource(R.drawable.ic_close_black_24dp)
         val searchEditText = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
@@ -60,7 +59,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                //headPresenter!!.searchWallpapers(query)
+                addSearchFragment(query)
                 return false
             }
 
@@ -73,9 +72,12 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         })
 
         searchView.setOnQueryTextFocusChangeListener { focus, hasFocus ->
-            when (hasFocus) {
-                true -> addSearchFragment()//Toast.makeText(applicationContext, "Поиск открылся", Toast.LENGTH_SHORT).show()
-                false -> removeSearchFragment()//Toast.makeText(applicationContext, "Поиск закрылся", Toast.LENGTH_SHORT).show()
+            if (hasFocus) {
+                navigation.visibility = View.GONE//Toast.makeText(applicationContext, "Поиск открылся", Toast.LENGTH_SHORT).show()
+            } else {
+                removeSearchFragment()
+                searchView.onActionViewCollapsed()
+                navigation.visibility = View.VISIBLE//Toast.makeText(applicationContext, "Поиск закрылся", Toast.LENGTH_SHORT).show()
             }
         }
         return true
@@ -93,7 +95,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
             R.id.navigation_category -> {
                 val fragment = FragmentCategory()
                 replaceFragment(fragment)
-                //toolbarTitle?.setText(R.string.title_categories)
+                toolbarTitle?.setText(R.string.title_categories)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_bookmarks -> {
@@ -114,16 +116,16 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
                 .commit()
     }
 
-    private fun addSearchFragment() {
-        val fragment = NewsSearch.newInstance()
+    private fun addSearchFragment(query: String) {
+        val fragment = FragmentNewsSearch.newInstance(query)
         navigation.visibility = View.GONE
         navigationContentFrame.visibility = View.INVISIBLE
         searchContentFrame.visibility = View.VISIBLE
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .add(searchContentFrame.id, fragment, fragment.javaClass.simpleName)
-                .addToBackStack(fragment.javaClass.simpleName)
+                .replace(searchContentFrame.id, fragment, fragment.javaClass.simpleName)
+                //.addToBackStack(fragment.javaClass.simpleName)
                 .commit()
     }
 

@@ -9,14 +9,14 @@ import ru.pyrovsergey.news.model.dto.Model
 @InjectViewState
 class NewsPresenter : MvpPresenter<NewsView>(), NetworkDataNewsListener {
     private val networkData = App.component.getNetworkData()
-    private val dataStorage = App.component.getDataStorage()
+    private val repository = App.component.getRepository()
 
     fun getDataTopLinesNews() {
         networkData.getTopLinesNews(this)
     }
 
     override fun onSuccess(list: List<Model.ArticlesItem>) {
-        dataStorage.listHeadlinesNews = list
+        repository.listHeadlinesNews = list
         viewState.updateListArticles()
     }
 
@@ -25,6 +25,6 @@ class NewsPresenter : MvpPresenter<NewsView>(), NetworkDataNewsListener {
     }
 
     fun getTopHeadlinesArticles(): List<Model.ArticlesItem> {
-        return dataStorage.listHeadlinesNews
+        return repository.listHeadlinesNews
     }
 }

@@ -36,6 +36,17 @@ class NetworkData {
                 )
     }
 
+    @SuppressLint("CheckResult")
+    fun getSearchArticles(query: String, newsListener: NetworkDataNewsListener) {
+        googleApi.getSearchNews(query, 100, "relevancy", key)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result -> newsListener.onSuccess(result.articles as List<Model.ArticlesItem>) },
+                        { error -> newsListener.onError(error.message!!) }
+                )
+    }
+
     private fun getLocal() = Locale.getDefault().country
 
     private fun getLanguage() = Locale.getDefault().language

@@ -3,6 +3,7 @@ package ru.pyrovsergey.news
 
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,14 +30,19 @@ class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>
 
     override fun onBindViewHolder(holder: ArticlesFragmentAdapter.ViewHolder, position: Int) {
         val article = listArticles[position]
-        Picasso.get().load(article.urlToImage).placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
+        val urlImage = article.urlToImage
+        if (TextUtils.isEmpty(urlImage)) {
+            Picasso.get().load(R.drawable.placeholder).into(holder.imageViewArticle)
+        } else {
+            Picasso.get().load(urlImage).placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
+        }
         holder.textViewTitleArticle.text = article.title
         holder.textViewSourceNameArticle.text = article.source?.name ?: ""
         holder.textViewDatePublishedAtArticle.text = getDate(article.publishedAt)
         holder.imageViewButtonMoreArticle.setOnClickListener { v -> Toast.makeText(App.context, article.title, Toast.LENGTH_SHORT).show() }
     }
 
-    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardViewArticle: CardView = view.findViewById(R.id.article_card_card_for_image)
         val imageViewArticle: ImageView = view.findViewById(R.id.article_card_image)
         val textViewTitleArticle: TextView = view.findViewById(R.id.article_card_title)

@@ -6,4 +6,8 @@ import com.arellomobile.mvp.MvpPresenter
 @InjectViewState
 class HeadPresenter: MvpPresenter<HeadView>() {
 
+    fun searchWallpapers(query: String) {
+
+    }
+
 }
