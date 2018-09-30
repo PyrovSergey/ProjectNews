@@ -9,13 +9,13 @@ import android.support.v7.widget.SearchView
 import android.text.TextUtils
 import android.view.Menu
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.navigation_content_main.*
+import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.fragments.FragmentBookmarks
 import ru.pyrovsergey.news.fragments.FragmentCategory
 import ru.pyrovsergey.news.fragments.FragmentNews
@@ -41,6 +41,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         val fragment = FragmentNews.newInstance()
         replaceFragment(fragment)
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        App.instance.checkInternetConnection()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,7 +60,9 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                addSearchFragment(query)
+                if (App.instance.checkInternetConnection()) {
+                    addSearchFragment(query)
+                }
                 return false
             }
 
@@ -73,11 +76,11 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
 
         searchView.setOnQueryTextFocusChangeListener { focus, hasFocus ->
             if (hasFocus) {
-                navigation.visibility = View.GONE//Toast.makeText(applicationContext, "Поиск открылся", Toast.LENGTH_SHORT).show()
+                navigation.visibility = View.GONE
             } else {
                 removeSearchFragment()
                 searchView.onActionViewCollapsed()
-                navigation.visibility = View.VISIBLE//Toast.makeText(applicationContext, "Поиск закрылся", Toast.LENGTH_SHORT).show()
+                navigation.visibility = View.VISIBLE
             }
         }
         return true
@@ -125,7 +128,6 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
                 .replace(searchContentFrame.id, fragment, fragment.javaClass.simpleName)
-                //.addToBackStack(fragment.javaClass.simpleName)
                 .commit()
     }
 

@@ -11,7 +11,6 @@
         android:layout_centerHorizontal="true"
         android:drawableTop="@drawable/ic_search_black_24dp"
         android:gravity="center_horizontal"
-        android:text="Search"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <android.support.v7.widget.RecyclerView

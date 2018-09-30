@@ -1,5 +1,6 @@
 package ru.pyrovsergey.news.model.dto
 
+import java.io.Serializable
 import java.util.*
 
 object Model {
@@ -7,7 +8,7 @@ object Model {
             val totalResults: Int? = null,
             val articles: List<ArticlesItem?>? = null,
             val status: String? = null
-    )
+    ) : Serializable
 
     data class ArticlesItem(
             val publishedAt: Date? = null,
@@ -18,10 +19,10 @@ object Model {
             val title: String? = null,
             val url: String? = null,
             val content: String? = null
-    )
+    ) : Serializable
 
     data class Source(
             val name: String? = null,
             val id: String? = null
-    )
+    ) : Serializable
 }

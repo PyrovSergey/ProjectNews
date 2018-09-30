@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.pyrovsergey.news.ArticlesFragmentAdapter
@@ -74,6 +73,6 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
     }
 
     override fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        App.instance.checkInternetConnection()
     }
 }

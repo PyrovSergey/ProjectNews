@@ -1,6 +1,7 @@
 package ru.pyrovsergey.news
 
 
+import android.net.Uri
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -17,7 +18,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
-    private val DATE_PATTERN = "HH:mm  dd MMMM yyyy"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesFragmentAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_card, parent, false)
@@ -31,10 +31,16 @@ class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>
     override fun onBindViewHolder(holder: ArticlesFragmentAdapter.ViewHolder, position: Int) {
         val article = listArticles[position]
         val urlImage = article.urlToImage
+        val baseUrl = Uri.parse(article.url).host
         if (TextUtils.isEmpty(urlImage)) {
-            Picasso.get().load(R.drawable.placeholder).into(holder.imageViewArticle)
+            Picasso.get().load("https://besticon-demo.herokuapp.com/icon?url=$baseUrl&size=64..100..120").placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
         } else {
             Picasso.get().load(urlImage).placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
+        }
+        holder.cardView.setOnClickListener { v ->
+            if (App.instance.checkInternetConnection()) {
+                WebActivity.startWebActivity(article)
+            }
         }
         holder.textViewTitleArticle.text = article.title
         holder.textViewSourceNameArticle.text = article.source?.name ?: ""
@@ -43,6 +49,7 @@ class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cardView: CardView = view.findViewById(R.id.article_card)
         val cardViewArticle: CardView = view.findViewById(R.id.article_card_card_for_image)
         val imageViewArticle: ImageView = view.findViewById(R.id.article_card_image)
         val textViewTitleArticle: TextView = view.findViewById(R.id.article_card_title)
@@ -54,5 +61,9 @@ class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>
     private fun getDate(data: Date?): String {
         val dateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
         return dateFormat.format(data)
+    }
+
+    companion object {
+        const val DATE_PATTERN = "HH:mm  dd MMMM yyyy"
     }
 }

@@ -16,7 +16,7 @@ class NetworkData {
 
     @SuppressLint("CheckResult")
     fun getTopLinesNews(newsListener: NetworkDataNewsListener) {
-        googleApi.getAllHeadlinesNews(getLocal(), 100, Companion.key)
+        googleApi.getAllHeadlinesNews(getLocal(), 100, Companion.KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -27,7 +27,7 @@ class NetworkData {
 
     @SuppressLint("CheckResult")
     fun getCategoryArticles(category: String, newsListener: NetworkDataCategoryListeners, page: Int) {
-        googleApi.getInCategoryHeadlinesNews(getLocal(), 100, category, Companion.key)
+        googleApi.getInCategoryHeadlinesNews(getLocal(), 100, category, Companion.KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -38,7 +38,7 @@ class NetworkData {
 
     @SuppressLint("CheckResult")
     fun getSearchArticles(query: String, newsListener: NetworkDataNewsListener) {
-        googleApi.getSearchNews(query, 100, "relevancy", key)
+        googleApi.getSearchNews(query, 100, RELEVANCY, KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -49,10 +49,10 @@ class NetworkData {
 
     private fun getLocal() = Locale.getDefault().country
 
-    private fun getLanguage() = Locale.getDefault().language
+    //private fun getLanguage() = Locale.getDefault().language
 
     companion object {
-        const val key = ""
+        const val KEY = ""
+        const val RELEVANCY = "relevancy"
     }
-
 }
