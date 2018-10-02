@@ -2,9 +2,11 @@ package ru.pyrovsergey.news.di
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.arch.persistence.room.Room
 import android.content.Context
 import android.net.ConnectivityManager
 import es.dmoral.toasty.Toasty
+import ru.pyrovsergey.news.model.db.AppDatabase
 
 
 class App : Application() {
@@ -15,6 +17,7 @@ class App : Application() {
         lateinit var instance: App
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
+        lateinit var database: AppDatabase
     }
 
     override fun onCreate() {
@@ -22,6 +25,7 @@ class App : Application() {
         context = applicationContext
         instance = this
         component = DaggerAppComponent.create()
+        database = Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
     }
 
     fun isInternetAvailable(): Boolean {

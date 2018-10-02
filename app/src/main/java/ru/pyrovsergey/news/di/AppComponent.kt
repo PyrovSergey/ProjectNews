@@ -1,7 +1,7 @@
 package ru.pyrovsergey.news.di
 
 import dagger.Component
-import ru.pyrovsergey.news.model.Repository
+import ru.pyrovsergey.news.model.db.Repository
 import ru.pyrovsergey.news.model.network.NetworkData
 import javax.inject.Singleton
 

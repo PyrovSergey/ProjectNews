@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.pyrovsergey.news.fragments.NetworkDataCategoryListeners
 import ru.pyrovsergey.news.fragments.NetworkDataNewsListener
-import ru.pyrovsergey.news.model.dto.Model
+import ru.pyrovsergey.news.model.dto.ArticlesItem
 import java.util.*
 
 class NetworkData {
@@ -20,7 +20,7 @@ class NetworkData {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> newsListener.onSuccess(result.articles as List<Model.ArticlesItem>) },
+                        { result -> newsListener.onSuccess(result.articles as List<ArticlesItem>) },
                         { error -> newsListener.onError(error.message!!) }
                 )
     }
@@ -31,7 +31,7 @@ class NetworkData {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> newsListener.onSuccess(result.articles as List<Model.ArticlesItem>, page) },
+                        { result -> newsListener.onSuccess(result.articles as List<ArticlesItem>, page) },
                         { error -> newsListener.onError(error.message!!) }
                 )
     }
@@ -42,7 +42,7 @@ class NetworkData {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> newsListener.onSuccess(result.articles as List<Model.ArticlesItem>) },
+                        { result -> newsListener.onSuccess(result.articles as List<ArticlesItem>) },
                         { error -> newsListener.onError(error.message!!) }
                 )
     }

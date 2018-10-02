@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.fragment_search.*
-import ru.pyrovsergey.news.ArticlesFragmentAdapter
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.presenter.NewsSearchPresenter
 import ru.pyrovsergey.news.presenter.NewsSearchView
+import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
 
 class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
 

@@ -2,9 +2,10 @@ package ru.pyrovsergey.news.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.arellomobile.mvp.MvpView
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.fragments.NetworkDataNewsListener
-import ru.pyrovsergey.news.model.dto.Model
+import ru.pyrovsergey.news.model.dto.ArticlesItem
 
 @InjectViewState
 class NewsSearchPresenter : MvpPresenter<NewsSearchView>(), NetworkDataNewsListener {
@@ -16,11 +17,11 @@ class NewsSearchPresenter : MvpPresenter<NewsSearchView>(), NetworkDataNewsListe
         networkData.getSearchArticles(query, this)
     }
 
-    fun getFoundArticles(): List<Model.ArticlesItem> {
+    fun getFoundArticles(): List<ArticlesItem> {
         return repository.foundArticlesList
     }
 
-    override fun onSuccess(list: List<Model.ArticlesItem>) {
+    override fun onSuccess(list: List<ArticlesItem>) {
         repository.foundArticlesList = list
         viewState.updateFoundArticles()
     }
@@ -28,4 +29,9 @@ class NewsSearchPresenter : MvpPresenter<NewsSearchView>(), NetworkDataNewsListe
     override fun onError(error: String) {
         viewState.showMessage(error)
     }
+}
+
+interface NewsSearchView : MvpView {
+    fun showMessage(message: String)
+    fun updateFoundArticles()
 }

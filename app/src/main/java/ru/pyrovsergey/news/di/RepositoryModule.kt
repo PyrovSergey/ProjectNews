@@ -2,7 +2,7 @@ package ru.pyrovsergey.news.di
 
 import dagger.Module
 import dagger.Provides
-import ru.pyrovsergey.news.model.Repository
+import ru.pyrovsergey.news.model.db.Repository
 import javax.inject.Singleton
 
 @Module

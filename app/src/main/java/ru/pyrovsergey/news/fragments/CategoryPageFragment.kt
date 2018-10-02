@@ -8,20 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import ru.pyrovsergey.news.ArticlesFragmentAdapter
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
-import ru.pyrovsergey.news.model.dto.Model
+import ru.pyrovsergey.news.model.dto.ArticlesItem
 import ru.pyrovsergey.news.presenter.CategoryPresenter
 import ru.pyrovsergey.news.presenter.CategoryView
+import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
 
 class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
 
     @InjectPresenter
-    lateinit var presenter: CategoryPresenter
+    lateinit var presenterMove: CategoryPresenter
 
     private var page: Int = 0
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        presenter.prepareContent(getCategory(page), page)
+        presenterMove.prepareContent(getCategory(page), page)
         recyclerView = inflater.inflate(R.layout.category_list, container, false) as RecyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
@@ -40,15 +40,15 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
         return recyclerView
     }
 
-    private fun getItemPlaceList(page: Int): List<Model.ArticlesItem> {
+    private fun getItemPlaceList(page: Int): List<ArticlesItem> {
         return when (page) {
-            1 -> presenter.getGeneralList()
-            2 -> presenter.getEntertainmentList()
-            3 -> presenter.getSportsList()
-            4 -> presenter.getTechnologyList()
-            5 -> presenter.getHealthList()
-            6 -> presenter.getBusinessList()
-            else -> presenter.getTopHeadlineList()
+            1 -> presenterMove.getGeneralList()
+            2 -> presenterMove.getEntertainmentList()
+            3 -> presenterMove.getSportsList()
+            4 -> presenterMove.getTechnologyList()
+            5 -> presenterMove.getHealthList()
+            6 -> presenterMove.getBusinessList()
+            else -> presenterMove.getTopHeadlineList()
         }
     }
 

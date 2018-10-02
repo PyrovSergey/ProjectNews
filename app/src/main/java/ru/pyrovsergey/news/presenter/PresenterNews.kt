@@ -2,9 +2,10 @@ package ru.pyrovsergey.news.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.arellomobile.mvp.MvpView
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.fragments.NetworkDataNewsListener
-import ru.pyrovsergey.news.model.dto.Model
+import ru.pyrovsergey.news.model.dto.ArticlesItem
 
 @InjectViewState
 class NewsPresenter : MvpPresenter<NewsView>(), NetworkDataNewsListener {
@@ -15,7 +16,7 @@ class NewsPresenter : MvpPresenter<NewsView>(), NetworkDataNewsListener {
         networkData.getTopLinesNews(this)
     }
 
-    override fun onSuccess(list: List<Model.ArticlesItem>) {
+    override fun onSuccess(list: List<ArticlesItem>) {
         repository.listHeadlinesNews = list
         viewState.updateListArticles()
     }
@@ -24,7 +25,12 @@ class NewsPresenter : MvpPresenter<NewsView>(), NetworkDataNewsListener {
         viewState.showErrorMessage(error)
     }
 
-    fun getTopHeadlinesArticles(): List<Model.ArticlesItem> {
+    fun getTopHeadlinesArticles(): List<ArticlesItem> {
         return repository.listHeadlinesNews
     }
+}
+
+interface NewsView : MvpView {
+    fun showErrorMessage(error: String)
+    fun updateListArticles()
 }

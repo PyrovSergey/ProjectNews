@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import ru.pyrovsergey.news.ArticlesFragmentAdapter
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.presenter.NewsPresenter
 import ru.pyrovsergey.news.presenter.NewsView
+import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
 
 class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -45,10 +45,13 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
         recycler.setHasFixedSize(true)
         manager = LinearLayoutManager(context)
         recycler.layoutManager = manager
-        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
-        recycler.adapter = adapter
-        presenter.getDataTopLinesNews()
+        updateListArticles()
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getDataTopLinesNews()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +60,6 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
 
     override fun updateListArticles() {
         adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
-        adapter.notifyDataSetChanged()
         recycler.adapter = adapter
         swipe.isRefreshing = false
     }

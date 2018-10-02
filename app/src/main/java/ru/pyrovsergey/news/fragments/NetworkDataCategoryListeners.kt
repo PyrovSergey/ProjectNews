@@ -1,8 +1,9 @@
 package ru.pyrovsergey.news.fragments
 
-import ru.pyrovsergey.news.model.dto.Model
+import ru.pyrovsergey.news.model.dto.ArticlesItem
+
 
 interface NetworkDataCategoryListeners {
-    fun onSuccess(list: List<Model.ArticlesItem>, category: Int)
+    fun onSuccess(list: List<ArticlesItem>, category: Int)
     fun onError(error: String)
 }

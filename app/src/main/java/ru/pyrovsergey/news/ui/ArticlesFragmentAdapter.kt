@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news
+package ru.pyrovsergey.news.ui
 
 
 import android.net.Uri
@@ -12,14 +12,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
+import ru.pyrovsergey.news.R
+import ru.pyrovsergey.news.WebActivity
 import ru.pyrovsergey.news.di.App
-import ru.pyrovsergey.news.model.dto.Model
+import ru.pyrovsergey.news.model.dto.ArticlesItem
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
+class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticlesFragmentAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_card, parent, false)
         return ViewHolder(view)
     }
@@ -28,7 +30,7 @@ class ArticlesFragmentAdapter(private val listArticles: List<Model.ArticlesItem>
         return listArticles.size
     }
 
-    override fun onBindViewHolder(holder: ArticlesFragmentAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = listArticles[position]
         val urlImage = article.urlToImage
         val baseUrl = Uri.parse(article.url).host
