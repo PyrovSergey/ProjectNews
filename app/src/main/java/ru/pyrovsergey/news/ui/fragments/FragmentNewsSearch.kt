@@ -14,6 +14,7 @@ import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.presenter.NewsSearchPresenter
 import ru.pyrovsergey.news.presenter.NewsSearchView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
+import ru.pyrovsergey.news.ui.PopupClass
 
 class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
 
@@ -42,7 +43,7 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
         searchRecycler = view.findViewById(R.id.search_recycler)
         searchRecycler.setHasFixedSize(true)
         searchRecycler.layoutManager = LinearLayoutManager(context)
-        searchRecycler.adapter = ArticlesFragmentAdapter(presenter.getFoundArticles())
+        searchRecycler.adapter = ArticlesFragmentAdapter(presenter.getFoundArticles(), PopupClass())
         return view
     }
 
@@ -58,7 +59,7 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
         } else {
             textViewSearch.visibility = View.INVISIBLE
         }
-        searchRecycler.adapter = ArticlesFragmentAdapter(list)
+        searchRecycler.adapter = ArticlesFragmentAdapter(list,PopupClass())
     }
 
 

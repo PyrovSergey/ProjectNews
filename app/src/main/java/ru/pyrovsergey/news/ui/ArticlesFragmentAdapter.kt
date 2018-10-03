@@ -2,6 +2,7 @@ package ru.pyrovsergey.news.ui
 
 
 import android.net.Uri
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.squareup.picasso.Picasso
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
@@ -18,7 +20,8 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
+class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>,
+                              private val pop : PopupClass) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_card, parent, false)
@@ -46,7 +49,48 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
         holder.textViewTitleArticle.text = article.title
         holder.textViewSourceNameArticle.text = article.source?.name ?: ""
         holder.textViewDatePublishedAtArticle.text = getDate(article.publishedAt)
-        holder.imageViewButtonMoreArticle.setOnClickListener { v -> Toast.makeText(App.context, article.title, Toast.LENGTH_SHORT).show() }
+        holder.imageViewButtonMoreArticle.setOnClickListener { v -> onSingleSectionWithIconsClicked(v, article) }
+    }
+
+    private fun onSingleSectionWithIconsClicked(view: View, articlesItem: ArticlesItem) {
+        val popupMenu = popupMenu {
+            section {
+                item {
+                    label = "Share"
+                    icon = R.drawable.ic_share_black_24dp //optional
+                    callback = {
+                        //optional
+                        pop.share(articlesItem)
+                    }
+                }
+                item {
+                    label = "Copy"
+                    iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_content_copy_black_24dp) //optional
+                    callback = {
+                        //optional
+                        pop.copy(articlesItem)
+                    }
+                }
+                item {
+                    label = "Open in browser"
+                    iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_browser_24dp) //optional
+                    callback = {
+                        //optional
+                        pop.openInBrowser(articlesItem)
+                    }
+                }
+                item {
+                    label = "Bookmarks"
+                    iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_collections_bookmark_black_24dp) //optional
+                    callback = {
+                        //optional
+                        pop.bookmarks(articlesItem)
+                    }
+                }
+            }
+        }
+
+        popupMenu.show(App.context, view)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

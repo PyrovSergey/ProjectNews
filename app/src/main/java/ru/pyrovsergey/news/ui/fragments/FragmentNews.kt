@@ -14,6 +14,7 @@ import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.presenter.NewsPresenter
 import ru.pyrovsergey.news.presenter.NewsView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
+import ru.pyrovsergey.news.ui.PopupClass
 
 class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -59,7 +60,7 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
     }
 
     override fun updateListArticles() {
-        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
+        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles(), PopupClass())
         recycler.adapter = adapter
         swipe.isRefreshing = false
     }

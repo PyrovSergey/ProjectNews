@@ -14,6 +14,7 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 import ru.pyrovsergey.news.presenter.CategoryPresenter
 import ru.pyrovsergey.news.presenter.CategoryView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
+import ru.pyrovsergey.news.ui.PopupClass
 
 class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
 
@@ -36,7 +37,7 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
         recyclerView = inflater.inflate(R.layout.category_list, container, false) as RecyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
+        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page), PopupClass())
         return recyclerView
     }
 
@@ -57,7 +58,7 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
     }
 
     override fun updateListArticles(page: Int) {
-        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
+        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page),PopupClass())
     }
 
     companion object {

@@ -14,6 +14,7 @@ import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.presenter.BookmarksPresenter
 import ru.pyrovsergey.news.presenter.BookmarksView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
+import ru.pyrovsergey.news.ui.PopupClass
 
 class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -44,7 +45,7 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
         recycler.setHasFixedSize(true)
         manager = LinearLayoutManager(context)
         recycler.layoutManager = manager
-        adapter = ArticlesFragmentAdapter(presenter.getBookmarks())
+        adapter = ArticlesFragmentAdapter(presenter.getBookmarks(), PopupClass())
         recycler.adapter = adapter
         updateBookmarksArticles()
         return view
@@ -57,7 +58,7 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
         } else {
             hideBackground()
         }
-        adapter = ArticlesFragmentAdapter(list)
+        adapter = ArticlesFragmentAdapter(list,PopupClass())
         adapter.notifyDataSetChanged()
         recycler.adapter = adapter
         swipe.isRefreshing = false
