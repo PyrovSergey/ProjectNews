@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news
+package ru.pyrovsergey.news.ui
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -15,6 +15,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_web.*
+import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.model.dto.ArticlesItem
 import ru.pyrovsergey.news.presenter.ViewWeb
@@ -32,6 +33,10 @@ class WebActivity : MvpAppCompatActivity(), ViewWeb {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
         setSupportActionBar(findViewById(R.id.web_toolbar))
+        init()
+    }
+
+    private fun init() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         article = intent.getSerializableExtra(KEY_ARTICLE) as ArticlesItem
         val newsWebView = findViewById<WebView>(R.id.news_web_view)
@@ -40,7 +45,6 @@ class WebActivity : MvpAppCompatActivity(), ViewWeb {
         newsWebView.loadUrl(article.url)
         presenter.checkArticle(article.url)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.web_menu, menu)

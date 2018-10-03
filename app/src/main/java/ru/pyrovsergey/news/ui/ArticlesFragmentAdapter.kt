@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
 import ru.pyrovsergey.news.R
-import ru.pyrovsergey.news.WebActivity
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.model.dto.ArticlesItem
 import java.text.SimpleDateFormat

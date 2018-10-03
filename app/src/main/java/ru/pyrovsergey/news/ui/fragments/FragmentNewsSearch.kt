@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news.fragments
+package ru.pyrovsergey.news.ui.fragments
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -22,7 +22,7 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
     lateinit var searchRecycler: RecyclerView
 
     companion object {
-        private const val key = "ru.pyrovsergey.news.fragments.query"
+        private const val key = "ru.pyrovsergey.news.ui.fragments.query"
         fun newInstance(query: String): FragmentNewsSearch {
             val fragmentSearch = FragmentNewsSearch()
             val args = Bundle()
@@ -54,7 +54,7 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
         val list = presenter.getFoundArticles()
         if (list.isEmpty()) {
             textViewSearch.visibility = View.VISIBLE
-            textViewSearch.text = "Empty"
+            textViewSearch.text = getString(R.string.empty)
         } else {
             textViewSearch.visibility = View.INVISIBLE
         }

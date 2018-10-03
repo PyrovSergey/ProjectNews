@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news
+package ru.pyrovsergey.news.ui
 
 import android.app.SearchManager
 import android.content.Context
@@ -15,11 +15,12 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.navigation_content_main.*
+import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
-import ru.pyrovsergey.news.fragments.FragmentBookmarks
-import ru.pyrovsergey.news.fragments.FragmentCategory
-import ru.pyrovsergey.news.fragments.FragmentNews
-import ru.pyrovsergey.news.fragments.FragmentNewsSearch
+import ru.pyrovsergey.news.ui.fragments.FragmentBookmarks
+import ru.pyrovsergey.news.ui.fragments.FragmentCategory
+import ru.pyrovsergey.news.ui.fragments.FragmentNews
+import ru.pyrovsergey.news.ui.fragments.FragmentNewsSearch
 import ru.pyrovsergey.news.presenter.HeadPresenter
 import ru.pyrovsergey.news.presenter.HeadView
 

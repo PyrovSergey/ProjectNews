@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news.fragments
+package ru.pyrovsergey.news.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout

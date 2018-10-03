@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news.fragments
+package ru.pyrovsergey.news.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import kotlinx.android.synthetic.main.fragment_bookmarks.*
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.presenter.BookmarksPresenter
 import ru.pyrovsergey.news.presenter.BookmarksView

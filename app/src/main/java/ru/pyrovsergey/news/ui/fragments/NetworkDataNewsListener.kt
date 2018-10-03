@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news.fragments
+package ru.pyrovsergey.news.ui.fragments
 
 import ru.pyrovsergey.news.model.dto.ArticlesItem
 

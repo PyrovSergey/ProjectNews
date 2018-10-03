@@ -1,4 +1,4 @@
-package ru.pyrovsergey.news.fragments
+package ru.pyrovsergey.news.ui.fragments
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
