@@ -45,7 +45,7 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
         recycler.setHasFixedSize(true)
         manager = LinearLayoutManager(context)
         recycler.layoutManager = manager
-        adapter = ArticlesFragmentAdapter(presenter.getBookmarks(), PopupClass())
+        adapter = ArticlesFragmentAdapter(presenter.getBookmarks())
         recycler.adapter = adapter
         updateBookmarksArticles()
         return view
@@ -58,7 +58,7 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
         } else {
             hideBackground()
         }
-        adapter = ArticlesFragmentAdapter(list,PopupClass())
+        adapter = ArticlesFragmentAdapter(list)
         adapter.notifyDataSetChanged()
         recycler.adapter = adapter
         swipe.isRefreshing = false

@@ -43,7 +43,7 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
         searchRecycler = view.findViewById(R.id.search_recycler)
         searchRecycler.setHasFixedSize(true)
         searchRecycler.layoutManager = LinearLayoutManager(context)
-        searchRecycler.adapter = ArticlesFragmentAdapter(presenter.getFoundArticles(), PopupClass())
+        searchRecycler.adapter = ArticlesFragmentAdapter(presenter.getFoundArticles())
         return view
     }
 
@@ -59,7 +59,7 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
         } else {
             textViewSearch.visibility = View.INVISIBLE
         }
-        searchRecycler.adapter = ArticlesFragmentAdapter(list,PopupClass())
+        searchRecycler.adapter = ArticlesFragmentAdapter(list)
     }
 
 

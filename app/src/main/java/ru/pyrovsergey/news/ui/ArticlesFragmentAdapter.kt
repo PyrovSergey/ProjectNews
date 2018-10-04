@@ -20,9 +20,9 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>,
-                              private val pop : PopupClass) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
+class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
 
+    private var pop = PopupClass
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.article_card, parent, false)
         return ViewHolder(view)

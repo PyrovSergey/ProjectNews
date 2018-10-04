@@ -60,7 +60,7 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
     }
 
     override fun updateListArticles() {
-        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles(), PopupClass())
+        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
         recycler.adapter = adapter
         swipe.isRefreshing = false
     }

@@ -37,7 +37,7 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
         recyclerView = inflater.inflate(R.layout.category_list, container, false) as RecyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page), PopupClass())
+        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
         return recyclerView
     }
 
@@ -58,7 +58,7 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
     }
 
     override fun updateListArticles(page: Int) {
-        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page),PopupClass())
+        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
     }
 
     companion object {
