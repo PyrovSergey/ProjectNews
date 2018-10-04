@@ -14,7 +14,6 @@ import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.presenter.BookmarksPresenter
 import ru.pyrovsergey.news.presenter.BookmarksView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
-import ru.pyrovsergey.news.ui.PopupClass
 
 class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -53,10 +52,9 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
 
     override fun updateBookmarksArticles() {
         val list = presenter.getBookmarks()
-        if (list.isEmpty()) {
-            showBackground()
-        } else {
-            hideBackground()
+        when(list.isEmpty()) {
+            true -> showBackground()
+            false -> hideBackground()
         }
         adapter = ArticlesFragmentAdapter(list)
         adapter.notifyDataSetChanged()

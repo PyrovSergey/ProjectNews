@@ -49,7 +49,7 @@ class NetworkData {
 
     private fun getLocal() = Locale.getDefault().country
 
-    ///private fun getLanguage() = Locale.getDefault().language
+    //private fun getLanguage() = Locale.getDefault().language
 
     companion object {
         const val KEY = ""

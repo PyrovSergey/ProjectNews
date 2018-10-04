@@ -38,7 +38,10 @@ class BookmarksPresenter : MvpPresenter<BookmarksView>(), RepositoryListener {
         viewState.updateBookmarksArticles()
     }
 
-    override fun positiveCheckResultBookmarks(article: ArticlesItem) {
+    override fun positiveCheckResultBookmarks(articlesItem: ArticlesItem) {
+    }
+
+    override fun negativeCheckResultBookmarks() {
     }
 }
 

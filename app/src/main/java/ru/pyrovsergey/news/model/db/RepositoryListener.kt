@@ -8,5 +8,6 @@ interface RepositoryListener {
     fun onSuccessInsertBookmark()
     fun onErrorInsertBookmark()
     fun onSuccessRequestBookmarksList()
-    fun positiveCheckResultBookmarks(article: ArticlesItem)
+    fun positiveCheckResultBookmarks(articlesItem: ArticlesItem)
+    fun negativeCheckResultBookmarks()
 }

@@ -1,7 +1,6 @@
 package ru.pyrovsergey.news.model.db
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +21,17 @@ class Repository {
     var foundArticlesList: List<ArticlesItem> = mutableListOf()
     var bookmarksArticlesList: List<ArticlesItem> = mutableListOf()
 
-    var bookmarkDao = App.database.bookmarksDao()
+    private var bookmarkDao = App.database.bookmarksDao()
+
+    @SuppressLint("CheckResult")
+    private fun refreshBookmarksList() {
+        bookmarkDao.getAllBookmarks()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { employees ->
+                    bookmarksArticlesList = employees
+                }
+    }
 
     @SuppressLint("CheckResult")
     fun getAllBookmarksList(listener: RepositoryListener) {
@@ -36,20 +45,18 @@ class Repository {
     }
 
     fun deleteBookmark(article: ArticlesItem, listener: RepositoryListener) {
-        var id: Int = 0
         Completable.fromAction {
-            id = bookmarkDao.delete(article)
+            bookmarkDao.delete(article)
         }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
                     override fun onSubscribe(d: Disposable) {
-
                     }
 
                     override fun onComplete() {
                         listener.onSuccessDeleteBookmark()
-                        //Toast.makeText(App.context, id.toString(), Toast.LENGTH_LONG).show()
+                        refreshBookmarksList()
                     }
 
                     override fun onError(e: Throwable) {
@@ -70,6 +77,7 @@ class Repository {
 
                     override fun onComplete() {
                         listener.onSuccessInsertBookmark()
+                        refreshBookmarksList()
                     }
 
                     override fun onError(e: Throwable) {
@@ -79,12 +87,15 @@ class Repository {
     }
 
     @SuppressLint("CheckResult")
-    fun isAddedToBookmarks(url: String?, listener: RepositoryListener) {
+    fun checkBookmarks(url: String?, listener: RepositoryListener) {
         bookmarkDao.getArticles(url!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { article ->
-                    listener.positiveCheckResultBookmarks(article)
+                .subscribe { articles ->
+                    when(articles.isEmpty()) {
+                        true -> listener.negativeCheckResultBookmarks()
+                        false -> listener.positiveCheckResultBookmarks(articles[0])
+                    }
                 }
     }
 }

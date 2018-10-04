@@ -14,7 +14,7 @@ interface BookmarkDao {
     fun getAllBookmarks(): Maybe<List<ArticlesItem>>
 
     @Query("SELECT * FROM bookmarks WHERE url = :url")
-    fun getArticles(url: String): Maybe<ArticlesItem>
+    fun getArticles(url: String): Maybe<List<ArticlesItem>>
 
     @Insert
     fun insert(article: ArticlesItem)
