@@ -1,11 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">News</string>
     <string name="title_news">News</string>
     <string name="title_categories">Categories</string>
     <string name="title_bookmarks">Bookmarks</string>
     <string name="empty">Empty</string>
+    <string name="bookmark_deleted">Bookmark deleted</string>
+    <string name="bookmark_added">Bookmark added</string>
+    <string name="error_delete_bookmark">Error delete bookmark</string>
+    <string name="error_insert_bookmark">Error insert bookmark</string>
+    <string name="share">Share</string>
+    <string name="copy">Copy</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="add_to_bookmarks">Add to bookmarks</string>
+    <string name="remove_from_bookmarks">Remove from bookmarks</string>
+    <string name="link_copied">Link copied</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="check_connection_settings">Check connection settings</string>
 
     <string-array name="tab_array">
+        <item>general</item>
+        <item>entertainment</item>
+        <item>sports</item>
+        <item>technology</item>
+        <item>health</item>
+        <item>business</item>
+    </string-array>
+
+    <string-array name="tab_array_title">
         <item>General</item>
         <item>Entertainment</item>
         <item>Sports</item>

@@ -1,7 +1,6 @@
 package ru.pyrovsergey.news.ui.fragments
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -49,7 +48,7 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView {
 
     override fun updateBookmarksArticles() {
         val list = presenter.getBookmarks()
-        when(list.isEmpty()) {
+        when (list.isEmpty()) {
             true -> showBackground()
             false -> hideBackground()
         }

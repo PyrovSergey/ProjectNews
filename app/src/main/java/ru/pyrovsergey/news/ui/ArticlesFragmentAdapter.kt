@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.squareup.picasso.Picasso
 import ru.pyrovsergey.news.R
@@ -36,10 +35,9 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
         val article = listArticles[position]
         val urlImage = article.urlToImage
         val baseUrl = Uri.parse(article.url).host
-        if (TextUtils.isEmpty(urlImage)) {
-            Picasso.get().load("https://besticon-demo.herokuapp.com/icon?url=$baseUrl&size=64..100..120").placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
-        } else {
-            Picasso.get().load(urlImage).placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
+        when(TextUtils.isEmpty(urlImage)){
+            true -> Picasso.get().load("https://besticon-demo.herokuapp.com/icon?url=$baseUrl&size=64..100..120").placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
+            false -> Picasso.get().load(urlImage).placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
         }
         holder.cardView.setOnClickListener { v ->
             if (App.instance.checkInternetConnection()) {
@@ -56,46 +54,40 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
         val popupMenu = popupMenu {
             section {
                 item {
-                    label = "Share"
-                    icon = R.drawable.ic_share_black_24dp //optional
+                    label = App.context.getString(R.string.share)
+                    icon = R.drawable.ic_share_black_24dp
                     callback = {
-                        //optional
                         pop.share(articlesItem)
                     }
                 }
                 item {
-                    label = "Copy"
+                    label = App.context.getString(R.string.copy)
                     iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_content_copy_black_24dp) //optional
                     callback = {
-                        //optional
                         pop.copy(articlesItem)
                     }
                 }
                 item {
-                    label = "Open in browser"
+                    label = App.context.getString(R.string.open_in_browser)
                     iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_browser_24dp) //optional
                     callback = {
-                        //optional
                         pop.openInBrowser(articlesItem)
                     }
                 }
                 item {
-                    label = "Bookmarks"
+                    label = if (!pop.inBookmark(articlesItem)) App.context.getString(R.string.add_to_bookmarks) else App.context.getString(R.string.remove_from_bookmarks)
                     iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_collections_bookmark_black_24dp) //optional
                     callback = {
-                        //optional
                         pop.bookmarks(articlesItem)
                     }
                 }
             }
         }
-
         popupMenu.show(App.context, view)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardView: CardView = view.findViewById(R.id.article_card)
-        val cardViewArticle: CardView = view.findViewById(R.id.article_card_card_for_image)
         val imageViewArticle: ImageView = view.findViewById(R.id.article_card_image)
         val textViewTitleArticle: TextView = view.findViewById(R.id.article_card_title)
         val textViewSourceNameArticle: TextView = view.findViewById(R.id.article_card_source_name)

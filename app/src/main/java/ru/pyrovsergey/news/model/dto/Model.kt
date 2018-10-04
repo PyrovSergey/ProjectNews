@@ -5,9 +5,7 @@ import java.io.Serializable
 import java.util.*
 
 class Articles : Serializable {
-    val totalResults: Int? = null
     val articles: List<ArticlesItem?>? = null
-    val status: String? = null
 }
 
 @Entity(tableName = "bookmarks")

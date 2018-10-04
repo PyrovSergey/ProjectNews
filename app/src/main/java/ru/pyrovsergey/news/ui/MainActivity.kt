@@ -1,18 +1,17 @@
 package ru.pyrovsergey.news.ui
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
-import android.text.TextUtils
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.navigation_content_main.*
 import ru.pyrovsergey.news.R
@@ -21,20 +20,14 @@ import ru.pyrovsergey.news.ui.fragments.FragmentBookmarks
 import ru.pyrovsergey.news.ui.fragments.FragmentCategory
 import ru.pyrovsergey.news.ui.fragments.FragmentNews
 import ru.pyrovsergey.news.ui.fragments.FragmentNewsSearch
-import ru.pyrovsergey.news.presenter.HeadPresenter
-import ru.pyrovsergey.news.presenter.HeadView
 
-class MainActivity : MvpAppCompatActivity(), HeadView {
-
-    @InjectPresenter
-    lateinit var presenter: HeadPresenter
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         initialization()
     }
-
 
     private fun initialization() {
         setSupportActionBar(toolbar)
@@ -68,9 +61,6 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (TextUtils.isEmpty(newText)) {
-                    //startOrReplaceListThemeFragment()
-                }
                 return false
             }
         })
@@ -86,7 +76,6 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         }
         return true
     }
-
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -112,6 +101,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         false
     }
 
+    @SuppressLint("PrivateResource")
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager
                 .beginTransaction()
@@ -120,6 +110,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
                 .commit()
     }
 
+    @SuppressLint("PrivateResource")
     private fun addSearchFragment(query: String) {
         val fragment = FragmentNewsSearch.newInstance(query)
         navigation.visibility = View.GONE

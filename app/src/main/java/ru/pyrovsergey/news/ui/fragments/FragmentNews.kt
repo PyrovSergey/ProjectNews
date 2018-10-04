@@ -14,7 +14,6 @@ import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.presenter.NewsPresenter
 import ru.pyrovsergey.news.presenter.NewsView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
-import ru.pyrovsergey.news.ui.PopupClass
 
 class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefreshListener {
 

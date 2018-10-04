@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Новости</string>
+    <string name="title_news">Новости</string>
+    <string name="title_categories">Категории</string>
+    <string name="title_bookmarks">Закладки</string>
+    <string name="empty">Пусто</string>
+    <string name="bookmark_deleted">Закладка удалена</string>
+    <string name="bookmark_added">Закладка добавлена</string>
+    <string name="error_delete_bookmark">Ошибка удаления закладокки</string>
+    <string name="error_insert_bookmark">Ошибка добавления закладки</string>
+    <string name="share">Поделиться</string>
+    <string name="copy">Скопировать ссылку</string>
+    <string name="open_in_browser">Открыть в браузере</string>
+    <string name="add_to_bookmarks">Добавить в закладки</string>
+    <string name="remove_from_bookmarks">Удалить из закладок</string>
+    <string name="link_copied">Ссылка скопирована</string>
+    <string name="no_internet_connection">Отсутствует интернет соединение</string>
+    <string name="check_connection_settings">Проверьте настройки сети</string>
+
+    <string-array name="tab_array">
+        <item>general</item>
+        <item>entertainment</item>
+        <item>sports</item>
+        <item>technology</item>
+        <item>health</item>
+        <item>business</item>
+    </string-array>
+
+    <string-array name="tab_array_title">
+        <item>Главное</item>
+        <item>Развлечения</item>
+        <item>Спорт</item>
+        <item>Технологии</item>
+        <item>Здоровье</item>
+        <item>Бизнес</item>
+    </string-array>
+</resources>

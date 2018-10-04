@@ -7,7 +7,6 @@ import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 
 class CategoryFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    private val PAGE_COUNT = 6
 
     override fun getCount(): Int {
         return PAGE_COUNT
@@ -18,6 +17,10 @@ class CategoryFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(f
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return App.context.resources.getStringArray(R.array.tab_array)[position]
+        return App.context.resources.getStringArray(R.array.tab_array_title)[position]
+    }
+
+    companion object {
+        private const val PAGE_COUNT = 6
     }
 }

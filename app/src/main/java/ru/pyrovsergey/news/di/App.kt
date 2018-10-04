@@ -6,6 +6,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import android.net.ConnectivityManager
 import es.dmoral.toasty.Toasty
+import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.model.db.AppDatabase
 
 
@@ -28,7 +29,7 @@ class App : Application() {
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
     }
 
-    fun isInternetAvailable(): Boolean {
+    private fun isInternetAvailable(): Boolean {
         val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo != null
                 && connectivityManager.activeNetworkInfo.isAvailable
@@ -38,8 +39,8 @@ class App : Application() {
     fun checkInternetConnection(): Boolean {
         val check = isInternetAvailable()
         when (!check) {
-            true -> Toasty.error(App.context, "No internet connection" +
-                    "\n" + "Check connection settings", 0, true).show()
+            true -> Toasty.error(App.context, getString(R.string.no_internet_connection) +
+                    "\n" + getString(R.string.check_connection_settings), 0, true).show()
         }
         return check
     }

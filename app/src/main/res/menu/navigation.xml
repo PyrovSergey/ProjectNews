@@ -15,5 +15,4 @@
         android:id="@+id/navigation_bookmarks"
         android:icon="@drawable/ic_collections_bookmark_black_24dp"
         android:title="@string/title_bookmarks" />
-
 </menu>

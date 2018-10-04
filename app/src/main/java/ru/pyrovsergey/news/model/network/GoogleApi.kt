@@ -26,7 +26,6 @@ interface GoogleApi {
                       @Query("sortBy") sort: String,
                       @Query("apiKey") key: String): Observable<Articles>
 
-
     companion object {
         fun create(): GoogleApi {
             val retrofit = Retrofit.Builder()

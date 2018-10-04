@@ -14,7 +14,6 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 import ru.pyrovsergey.news.presenter.CategoryPresenter
 import ru.pyrovsergey.news.presenter.CategoryView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
-import ru.pyrovsergey.news.ui.PopupClass
 
 class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
 

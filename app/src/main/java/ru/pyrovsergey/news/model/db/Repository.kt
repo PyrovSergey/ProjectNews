@@ -24,10 +24,19 @@ class Repository {
 
     private var bookmarkDao = App.database.bookmarksDao()
 
-    lateinit var listener: BookmarksListener
+    var listener: BookmarksListener? = null
 
     fun setChangeListener(bookmarksPresenter: BookmarksPresenter) {
         listener = bookmarksPresenter
+    }
+
+    fun containArticle(article: ArticlesItem): Boolean {
+        for (item in bookmarksArticlesList) {
+            if (item.url == article.url) {
+                return true
+            }
+        }
+        return false
     }
 
     @SuppressLint("CheckResult")
@@ -37,18 +46,9 @@ class Repository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { employees ->
                     bookmarksArticlesList = employees
-                    listener.update()
-                }
-    }
-
-    @SuppressLint("CheckResult")
-    fun getAllBookmarksList() {
-        bookmarkDao.getAllBookmarks()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { employees ->
-                    bookmarksArticlesList = employees
-                    //listener.onSuccessRequestBookmarksList()
+                    if (listener != null) {
+                        listener!!.update()
+                    }
                 }
     }
 
@@ -106,5 +106,4 @@ class Repository {
                     }
                 }
     }
-
 }
