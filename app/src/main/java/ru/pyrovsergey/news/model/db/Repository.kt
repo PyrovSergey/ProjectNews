@@ -8,6 +8,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.model.dto.ArticlesItem
+import ru.pyrovsergey.news.presenter.BookmarksPresenter
 
 
 class Repository {
@@ -23,6 +24,12 @@ class Repository {
 
     private var bookmarkDao = App.database.bookmarksDao()
 
+    lateinit var listener: BookmarksListener
+
+    fun setChangeListener(bookmarksPresenter: BookmarksPresenter) {
+        listener = bookmarksPresenter
+    }
+
     @SuppressLint("CheckResult")
     private fun refreshBookmarksList() {
         bookmarkDao.getAllBookmarks()
@@ -30,17 +37,18 @@ class Repository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { employees ->
                     bookmarksArticlesList = employees
+                    listener.update()
                 }
     }
 
     @SuppressLint("CheckResult")
-    fun getAllBookmarksList(listener: RepositoryListener) {
+    fun getAllBookmarksList() {
         bookmarkDao.getAllBookmarks()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { employees ->
                     bookmarksArticlesList = employees
-                    listener.onSuccessRequestBookmarksList()
+                    //listener.onSuccessRequestBookmarksList()
                 }
     }
 
@@ -92,10 +100,11 @@ class Repository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { articles ->
-                    when(articles.isEmpty()) {
+                    when (articles.isEmpty()) {
                         true -> listener.negativeCheckResultBookmarks()
                         false -> listener.positiveCheckResultBookmarks(articles[0])
                     }
                 }
     }
+
 }

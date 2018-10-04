@@ -15,7 +15,7 @@ import ru.pyrovsergey.news.presenter.BookmarksPresenter
 import ru.pyrovsergey.news.presenter.BookmarksView
 import ru.pyrovsergey.news.ui.ArticlesFragmentAdapter
 
-class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLayout.OnRefreshListener {
+class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView {
 
     @InjectPresenter
     lateinit var presenter: BookmarksPresenter
@@ -23,7 +23,6 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
     private lateinit var manager: LinearLayoutManager
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: ArticlesFragmentAdapter
-    private lateinit var swipe: SwipeRefreshLayout
     private lateinit var bookmarksTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +36,6 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_bookmarks, container, false)
-        swipe = view.findViewById(R.id.bookmarks_swipe_refresh_layout)
-        swipe.setOnRefreshListener(this)
         bookmarksTextView = view.findViewById(R.id.bookmarks_text_view)
         recycler = view.findViewById(R.id.bookmarks_recycler)
         recycler.setHasFixedSize(true)
@@ -59,7 +56,6 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
         adapter = ArticlesFragmentAdapter(list)
         adapter.notifyDataSetChanged()
         recycler.adapter = adapter
-        swipe.isRefreshing = false
     }
 
     private fun showBackground() {
@@ -68,9 +64,5 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView, SwipeRefreshLay
 
     private fun hideBackground() {
         bookmarksTextView.visibility = View.INVISIBLE
-    }
-
-    override fun onRefresh() {
-        presenter.refreshBookmarksList()
     }
 }
