@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/article_card"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/article_card"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_marginLeft="8dp"
@@ -29,7 +29,8 @@
                 android:id="@+id/article_card_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
         </android.support.v7.widget.CardView>
 
         <ImageView
@@ -39,23 +40,43 @@
             android:layout_alignBottom="@+id/article_card_card_for_image"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="104dp"
-            android:layout_marginEnd="146dp"
-            android:layout_marginBottom="-3dp"
+            android:layout_marginTop="101dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="0dp"
             android:src="@drawable/ic_more_vert_grey_600_24dp" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/article_card_card_source_image"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignStart="@+id/article_card_title"
+            android:layout_alignBottom="@+id/article_card_source_name"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:id="@+id/article_card_image_source_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/article_card_card_source_image"
+                android:layout_toEndOf="@+id/article_card_card_source_image"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[8]" />
+
+        </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@+id/article_card_source_name"
-            android:layout_width="200dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/article_card_title"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="154dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
+            android:paddingLeft="5dp"
             android:textSize="12sp"
             tools:text="Vesti.ru" />
 
@@ -63,15 +84,16 @@
             android:id="@+id/article_card_title"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/article_card_button_more"
+            android:layout_alignBottom="@+id/article_card_date_publishedAt"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="39dp"
-            android:layout_marginEnd="130dp"
-            android:layout_marginBottom="66dp"
-            android:paddingStart="5dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="20dp"
+
+
             android:paddingEnd="5dp"
             android:textColor="@color/colorBlack"
             android:textSize="12sp"
@@ -81,12 +103,10 @@
             android:id="@+id/article_card_date_publishedAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/article_card_source_name"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="112dp"
-            android:layout_marginBottom="25dp"
-            android:paddingStart="5dp"
+            android:layout_alignBottom="@+id/article_card_card_for_image"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginBottom="0dp"
             android:paddingEnd="5dp"
             android:textSize="12sp"
             tools:text="01.12.2018" />

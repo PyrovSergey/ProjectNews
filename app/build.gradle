@@ -54,4 +54,5 @@ dependencies {
     testImplementation 'android.arch.persistence.room:testing:1.1.1'
     implementation 'android.arch.persistence.room:rxjava2:1.1.1'
     implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.2.0'
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 }

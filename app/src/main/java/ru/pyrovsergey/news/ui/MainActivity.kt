@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.navigation_content_main.*
 import ru.pyrovsergey.news.R
@@ -36,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(fragment)
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         App.instance.checkInternetConnection()
+        Toasty.Config.getInstance()
+                .setSuccessColor(getColor(R.color.colorBlack))
+                .setTextColor(getColor(R.color.colorWhite))
+                .apply()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

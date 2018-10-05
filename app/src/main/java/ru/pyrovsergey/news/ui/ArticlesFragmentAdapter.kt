@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.squareup.picasso.Picasso
+import org.ocpsoft.prettytime.PrettyTime
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.model.dto.ArticlesItem
@@ -35,10 +36,11 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
         val article = listArticles[position]
         val urlImage = article.urlToImage
         val baseUrl = Uri.parse(article.url).host
-        when(TextUtils.isEmpty(urlImage)){
+        when (TextUtils.isEmpty(urlImage)) {
             true -> Picasso.get().load("https://besticon-demo.herokuapp.com/icon?url=$baseUrl&size=64..100..120").placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
             false -> Picasso.get().load(urlImage).placeholder(R.drawable.placeholder).into(holder.imageViewArticle)
         }
+        Picasso.get().load("https://besticon-demo.herokuapp.com/icon?url=$baseUrl&size=32..64..64").into(holder.imageSourceView)
         holder.cardView.setOnClickListener { v ->
             if (App.instance.checkInternetConnection()) {
                 WebActivity.startWebActivity(article)
@@ -88,6 +90,7 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardView: CardView = view.findViewById(R.id.article_card)
+        val imageSourceView: ImageView = view.findViewById(R.id.article_card_image_source_image)
         val imageViewArticle: ImageView = view.findViewById(R.id.article_card_image)
         val textViewTitleArticle: TextView = view.findViewById(R.id.article_card_title)
         val textViewSourceNameArticle: TextView = view.findViewById(R.id.article_card_source_name)
@@ -96,11 +99,12 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
     }
 
     private fun getDate(data: Date?): String {
-        val dateFormat = SimpleDateFormat(DATE_PATTERN, Locale.getDefault())
-        return dateFormat.format(data)
+        val prettyTime = PrettyTime()
+        return prettyTime.format(data)
     }
 
     companion object {
         const val DATE_PATTERN = "HH:mm  dd MMMM yyyy"
+        const val HOURS_PATTERN = "HH:mm"
     }
 }
