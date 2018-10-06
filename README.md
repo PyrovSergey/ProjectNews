@@ -24,7 +24,4 @@ News aggregator application for android
 <img src="https://image.ibb.co/ex7hE9/20180926_112628.gif" width="200">
  
 ### Screenshots
-<img src="https://image.ibb.co/chqGG9/photo_2018_10_06_15_10_41.jpg" width="200">
-<img src="https://image.ibb.co/f9PyUU/photo_2018_10_06_15_10_57.jpg" width="200">
-<img src="https://image.ibb.co/kDdQ9U/photo_2018_10_06_15_11_01.jpg" width="200">
-<img src="hhttps://image.ibb.co/dubqb9/photo_2018_10_06_15_11_06.jpg" width="200">
+<img src="https://image.ibb.co/chqGG9/photo_2018_10_06_15_10_41.jpg" width="200"><img src="https://image.ibb.co/f9PyUU/photo_2018_10_06_15_10_57.jpg" width="200"><img src="https://image.ibb.co/kDdQ9U/photo_2018_10_06_15_11_01.jpg" width="200"><img src="hhttps://image.ibb.co/dubqb9/photo_2018_10_06_15_11_06.jpg" width="200">
