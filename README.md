@@ -8,8 +8,8 @@ News aggregator application for android
 ### Used Libraries
  - Moxy
  - Dagger2
- - Retrofit
- - RxJava
+ - Retrofit2
+ - RxJava2
  - Room
  - Firebase
  - Crashlytics
