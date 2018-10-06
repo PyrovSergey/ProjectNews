@@ -20,7 +20,7 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
+class ArticlesFragmentAdapter(private var listArticles: List<ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
 
     private var pop = PopupClass
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -103,8 +103,8 @@ class ArticlesFragmentAdapter(private val listArticles: List<ArticlesItem>) : Re
         return prettyTime.format(data)
     }
 
-    companion object {
-        const val DATE_PATTERN = "HH:mm  dd MMMM yyyy"
-        const val HOURS_PATTERN = "HH:mm"
+    fun updateAdapter(newListArticles: List<ArticlesItem>) {
+        listArticles = newListArticles
+        notifyDataSetChanged()
     }
 }

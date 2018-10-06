@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "597922554726",
+    "firebase_url": "https://projectnews-77de2.firebaseio.com",
+    "project_id": "projectnews-77de2",
+    "storage_bucket": "projectnews-77de2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597922554726:android:41694c8707384828",
+        "android_client_info": {
+          "package_name": "ru.pyrovsergey.news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597922554726-npri92l40dqv38erjjlouk6p37siau8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.pyrovsergey.news",
+            "certificate_hash": "af71e170b3cca8098d08206e822a21bcddecb773"
+          }
+        },
+        {
+          "client_id": "597922554726-cgkone26bsmmhlbmlk1esd14pkbkco3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYzUSS4Dq5bWUqCDftKs05BJMeNQT1bzw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597922554726-cgkone26bsmmhlbmlk1esd14pkbkco3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

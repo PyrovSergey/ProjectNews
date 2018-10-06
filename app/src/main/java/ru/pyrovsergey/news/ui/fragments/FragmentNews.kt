@@ -33,10 +33,6 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_news, container, false)
         swipe = view.findViewById(R.id.news_swipe_refresh_layout)
@@ -45,7 +41,8 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
         recycler.setHasFixedSize(true)
         manager = LinearLayoutManager(context)
         recycler.layoutManager = manager
-        updateListArticles()
+        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
+        recycler.adapter = adapter
         return view
     }
 
@@ -54,13 +51,8 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
         presenter.getDataTopLinesNews()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun updateListArticles() {
-        adapter = ArticlesFragmentAdapter(presenter.getTopHeadlinesArticles())
-        recycler.adapter = adapter
+        adapter.updateAdapter(presenter.getTopHeadlinesArticles())
         swipe.isRefreshing = false
     }
 

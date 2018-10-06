@@ -6,23 +6,34 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.crashlytics.android.Crashlytics
+import com.google.firebase.analytics.FirebaseAnalytics
 import es.dmoral.toasty.Toasty
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.navigation_content_main.*
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
+import ru.pyrovsergey.news.presenter.HeadPresenter
+import ru.pyrovsergey.news.presenter.HeadView
 import ru.pyrovsergey.news.ui.fragments.FragmentBookmarks
 import ru.pyrovsergey.news.ui.fragments.FragmentCategory
 import ru.pyrovsergey.news.ui.fragments.FragmentNews
 import ru.pyrovsergey.news.ui.fragments.FragmentNewsSearch
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : MvpAppCompatActivity(), HeadView {
+
+    @InjectPresenter
+    lateinit var presenter: HeadPresenter
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +42,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialization() {
+        Fabric.with(this, Crashlytics())
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         supportActionBar?.title = ""
         setSupportActionBar(toolbar)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -86,25 +99,37 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_news -> {
-                val fragment = FragmentNews.newInstance()
-                replaceFragment(fragment)
-                toolbarTitle?.setText(R.string.title_news)
+                presenter.clickNewsList()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_category -> {
-                val fragment = FragmentCategory()
-                replaceFragment(fragment)
-                toolbarTitle?.setText(R.string.title_categories)
+                presenter.clickCategoryList()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_bookmarks -> {
-                val fragment = FragmentBookmarks()
-                replaceFragment(fragment)
-                toolbarTitle?.setText(R.string.title_bookmarks)
+                presenter.clickBookmarksList()
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
+    }
+
+    override fun openNewsList() {
+        val fragment = FragmentNews.newInstance()
+        replaceFragment(fragment)
+        toolbarTitle?.setText(R.string.title_news)
+    }
+
+    override fun openCategoryList() {
+        val fragment = FragmentCategory()
+        replaceFragment(fragment)
+        toolbarTitle?.setText(R.string.title_categories)
+    }
+
+    override fun openBookmarksList() {
+        val fragment = FragmentBookmarks()
+        replaceFragment(fragment)
+        toolbarTitle?.setText(R.string.title_bookmarks)
     }
 
     @SuppressLint("PrivateResource")

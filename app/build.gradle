@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 27
@@ -55,4 +56,10 @@ dependencies {
     implementation 'android.arch.persistence.room:rxjava2:1.1.1'
     implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.2.0'
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+        transitive = true;
+    }
 }
+
+apply plugin: 'io.fabric'

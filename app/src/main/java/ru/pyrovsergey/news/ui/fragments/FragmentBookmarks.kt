@@ -52,9 +52,7 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView {
             true -> showBackground()
             false -> hideBackground()
         }
-        adapter = ArticlesFragmentAdapter(list)
-        adapter.notifyDataSetChanged()
-        recycler.adapter = adapter
+        adapter.updateAdapter(list)
     }
 
     private fun showBackground() {

@@ -76,7 +76,7 @@
             android:layout_marginStart="33dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="154dp"
-            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             android:textSize="12sp"
             tools:text="Vesti.ru" />
 
@@ -92,12 +92,11 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="26dp"
             android:layout_marginBottom="20dp"
-
-
             android:paddingEnd="5dp"
+            android:lines="4"
             android:textColor="@color/colorBlack"
             android:textSize="12sp"
-            tools:text="Find X от Oppo получит рекордные 10 Гб оперативной памяти" />
+            tools:text="Find X от Oppo получит рекордные 10 Гб оперативной памяти Find X от Oppo получит рекордные 10 Гб оперативной памяти" />
 
         <TextView
             android:id="@+id/article_card_date_publishedAt"

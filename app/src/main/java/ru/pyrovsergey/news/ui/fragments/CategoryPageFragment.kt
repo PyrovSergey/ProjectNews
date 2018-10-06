@@ -22,6 +22,7 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
 
     private var page: Int = 0
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ArticlesFragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,8 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
         recyclerView = inflater.inflate(R.layout.category_list, container, false) as RecyclerView
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
+        adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
+        recyclerView.adapter = adapter
         return recyclerView
     }
 
@@ -57,7 +59,8 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
     }
 
     override fun updateListArticles(page: Int) {
-        recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
+        adapter.updateAdapter(getItemPlaceList(page))
+        //recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
     }
 
     companion object {
