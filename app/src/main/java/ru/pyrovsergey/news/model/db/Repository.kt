@@ -28,6 +28,7 @@ class Repository {
 
     fun setChangeListener(bookmarksPresenter: BookmarksPresenter) {
         listener = bookmarksPresenter
+        refreshBookmarksList()
     }
 
     fun containArticle(article: ArticlesItem): Boolean {
