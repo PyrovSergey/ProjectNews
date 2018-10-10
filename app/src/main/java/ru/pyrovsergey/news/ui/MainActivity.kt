@@ -3,6 +3,7 @@ package ru.pyrovsergey.news.ui
 import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -47,6 +48,12 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         supportActionBar?.title = ""
         setSupportActionBar(toolbar)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            window.navigationBarColor = getColor(R.color.colorWhite)
+        } else {
+            window.navigationBarColor = getColor(R.color.colorLightGrey)
+        }
         val fragment = FragmentNews.newInstance()
         replaceFragment(fragment)
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
