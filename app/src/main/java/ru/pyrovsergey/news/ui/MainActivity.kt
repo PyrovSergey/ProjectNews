@@ -1,6 +1,5 @@
 package ru.pyrovsergey.news.ui
 
-import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.os.Build
@@ -19,7 +18,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import es.dmoral.toasty.Toasty
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_news.*
-import kotlinx.android.synthetic.main.navigation_content_main.*
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.presenter.HeadPresenter
@@ -28,6 +26,7 @@ import ru.pyrovsergey.news.ui.fragments.FragmentBookmarks
 import ru.pyrovsergey.news.ui.fragments.FragmentCategory
 import ru.pyrovsergey.news.ui.fragments.FragmentNews
 import ru.pyrovsergey.news.ui.fragments.FragmentNewsSearch
+import ru.terrakok.cicerone.android.SupportFragmentNavigator
 
 
 class MainActivity : MvpAppCompatActivity(), HeadView {
@@ -49,19 +48,46 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         setSupportActionBar(toolbar)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             window.navigationBarColor = getColor(R.color.colorWhite)
         } else {
             window.navigationBarColor = getColor(R.color.colorLightGrey)
         }
-        val fragment = FragmentNews.newInstance()
-        replaceFragment(fragment)
+        presenter.prepareScreen()
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         App.instance.checkInternetConnection()
         Toasty.Config.getInstance()
                 .setSuccessColor(getColor(R.color.colorBlack))
                 .setTextColor(getColor(R.color.colorWhite))
                 .apply()
+    }
+
+    private val navigator = object : SupportFragmentNavigator(supportFragmentManager, R.id.navigationContentFrame) {
+        override fun createFragment(screenKey: String?, data: Any?): Fragment {
+            return when (screenKey) {
+                "FragmentNews" -> FragmentNews.newInstance()
+                "FragmentCategory" -> FragmentCategory.newInstance()
+                "FragmentBookmarks" -> FragmentBookmarks.newInstance()
+                "FragmentNewsSearch" -> FragmentNewsSearch.newInstance(data as String)
+                else -> FragmentNews.newInstance()
+            }
+        }
+
+        override fun exit() {
+        }
+
+        override fun showSystemMessage(message: String?) {
+            Toasty.error(this@MainActivity, message!!, 0, true).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        App.instance.getNavigationHolder().setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        App.instance.getNavigationHolder().removeNavigator()
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -81,7 +107,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (App.instance.checkInternetConnection()) {
-                    addSearchFragment(query)
+                    presenter.clickSearchList(query)
                 }
                 return false
             }
@@ -92,12 +118,9 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         })
 
         searchView.setOnQueryTextFocusChangeListener { focus, hasFocus ->
-            if (hasFocus) {
-                navigation.visibility = View.GONE
-            } else {
-                removeSearchFragment()
+            if (!hasFocus) {
+                presenter.closeSearchFragment()
                 searchView.onActionViewCollapsed()
-                navigation.visibility = View.VISIBLE
             }
         }
         return true
@@ -106,64 +129,31 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_news -> {
-                presenter.clickNewsList()
+                presenter.clickNewsList(resources.getString(R.string.title_news))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_category -> {
-                presenter.clickCategoryList()
+                presenter.clickCategoryList(resources.getString(R.string.title_categories))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_bookmarks -> {
-                presenter.clickBookmarksList()
+                presenter.clickBookmarksList(resources.getString(R.string.title_bookmarks))
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
-    override fun openNewsList() {
-        val fragment = FragmentNews.newInstance()
-        replaceFragment(fragment)
-        toolbarTitle?.setText(R.string.title_news)
+    override fun changeToolBarTitle(title: String) {
+        toolbarTitle?.text = title
     }
 
-    override fun openCategoryList() {
-        val fragment = FragmentCategory()
-        replaceFragment(fragment)
-        toolbarTitle?.setText(R.string.title_categories)
+    override fun changeVisibleNavBar(visible: Int) {
+        navigation.visibility = visible
     }
 
-    override fun openBookmarksList() {
-        val fragment = FragmentBookmarks()
-        replaceFragment(fragment)
-        toolbarTitle?.setText(R.string.title_bookmarks)
-    }
-
-    @SuppressLint("PrivateResource")
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .replace(navigationContentFrame.id, fragment, fragment.javaClass.simpleName)
-                .commit()
-    }
-
-    @SuppressLint("PrivateResource")
-    private fun addSearchFragment(query: String) {
-        val fragment = FragmentNewsSearch.newInstance(query)
-        navigation.visibility = View.GONE
-        navigationContentFrame.visibility = View.INVISIBLE
-        searchContentFrame.visibility = View.VISIBLE
-        supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .replace(searchContentFrame.id, fragment, fragment.javaClass.simpleName)
-                .commit()
-    }
-
-    private fun removeSearchFragment() {
-        navigation.visibility = View.VISIBLE
-        navigationContentFrame.visibility = View.VISIBLE
-        searchContentFrame.visibility = View.INVISIBLE
+    override fun onBackPressed() {
+        changeVisibleNavBar(View.VISIBLE)
+        super.onBackPressed()
     }
 }

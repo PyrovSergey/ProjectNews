@@ -1,31 +1,50 @@
 package ru.pyrovsergey.news.presenter
 
+import android.view.View
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
+import ru.pyrovsergey.news.di.App
 
 @InjectViewState
 class HeadPresenter : MvpPresenter<HeadView>() {
+    private val router = App.instance.getRouter()
+    private var firstCall = true
 
-    fun clickNewsList() {
-        viewState.openNewsList()
+    fun prepareScreen() {
+        if (firstCall) {
+            firstCall = false
+            router.replaceScreen("1")
+        }
     }
 
-    fun clickCategoryList() {
-        viewState.openCategoryList()
+    fun closeSearchFragment() {
+        router.exit()
+        viewState.changeVisibleNavBar(View.VISIBLE)
     }
 
-    fun clickBookmarksList() {
-        viewState.openBookmarksList()
+    fun clickNewsList(barTitle: String) {
+        router.replaceScreen("FragmentNews")
+        viewState.changeToolBarTitle(barTitle)
+    }
+
+    fun clickCategoryList(barTitle: String) {
+        router.replaceScreen("FragmentCategory")
+        viewState.changeToolBarTitle(barTitle)
+    }
+
+    fun clickBookmarksList(barTitle: String) {
+        router.replaceScreen("FragmentBookmarks")
+        viewState.changeToolBarTitle(barTitle)
+    }
+
+    fun clickSearchList(query: String) {
+        router.navigateTo("FragmentNewsSearch", query)
+        viewState.changeVisibleNavBar(View.INVISIBLE)
     }
 }
 
-
 interface HeadView : MvpView {
-
-    fun openNewsList()
-    fun openCategoryList()
-    fun openBookmarksList()
+    fun changeToolBarTitle(title: String)
+    fun changeVisibleNavBar(visible: Int)
 }

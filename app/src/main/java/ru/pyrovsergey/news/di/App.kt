@@ -8,6 +8,9 @@ import android.net.ConnectivityManager
 import es.dmoral.toasty.Toasty
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.model.db.AppDatabase
+import ru.terrakok.cicerone.Cicerone
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.Router
 
 
 class App : Application() {
@@ -21,13 +24,19 @@ class App : Application() {
         lateinit var database: AppDatabase
     }
 
+    private lateinit var cicerone: Cicerone<Router>
+
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
         instance = this
+        cicerone = Cicerone.create()
         component = DaggerAppComponent.create()
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database").build()
     }
+
+    fun getNavigationHolder(): NavigatorHolder = cicerone.navigatorHolder
+    fun getRouter(): Router = cicerone.router
 
     private fun isInternetAvailable(): Boolean {
         val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

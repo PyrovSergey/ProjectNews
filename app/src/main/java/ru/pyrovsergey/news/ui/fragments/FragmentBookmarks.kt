@@ -28,6 +28,15 @@ class FragmentBookmarks : MvpAppCompatFragment(), BookmarksView {
         super.onCreate(savedInstanceState)
     }
 
+    companion object {
+        fun newInstance(): FragmentBookmarks {
+            val fragmentBookmarks = FragmentBookmarks()
+            val args = Bundle()
+            fragmentBookmarks.arguments = args
+            return fragmentBookmarks
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         presenter.refreshBookmarksList()

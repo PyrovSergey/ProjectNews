@@ -19,6 +19,16 @@ class FragmentCategory : Fragment() {
         return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
+    companion object {
+        fun newInstance(): FragmentCategory {
+            val fragmentCategory = FragmentCategory()
+            val args = Bundle()
+            fragmentCategory.arguments = args
+            return fragmentCategory
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = view.findViewById<ViewPager>(R.id.viewpager)
