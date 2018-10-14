@@ -101,7 +101,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
         val searchCloseIcon = searchView.findViewById<ImageView>(android.support.v7.appcompat.R.id.search_close_btn)
-        searchCloseIcon.setImageResource(R.drawable.ic_close_black_24dp)
+        searchCloseIcon.visibility = View.INVISIBLE
         val searchEditText = searchView.findViewById<EditText>(android.support.v7.appcompat.R.id.search_src_text)
         searchEditText.setTextColor(getColor(R.color.colorBlack))
         searchEditText.setHintTextColor(getColor(R.color.colorBlackOverlay))
