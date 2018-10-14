@@ -9,8 +9,8 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 
 @InjectViewState
 class NewsPresenter : MvpPresenter<NewsView>(), NetworkDataNewsListener {
-    private val networkData = App.component.getNetworkData()
-    private val repository = App.component.getRepository()
+    private val networkData = App.getInstance().getComponent().getNetworkData()
+    private val repository = App.getInstance().getComponent().getRepository()
 
     fun getDataTopLinesNews() {
         networkData.getTopLinesNews(this)

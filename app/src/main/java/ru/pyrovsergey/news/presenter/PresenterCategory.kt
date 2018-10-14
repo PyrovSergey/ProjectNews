@@ -4,14 +4,14 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
 import ru.pyrovsergey.news.di.App
-import ru.pyrovsergey.news.ui.fragments.NetworkDataCategoryListeners
 import ru.pyrovsergey.news.model.dto.ArticlesItem
+import ru.pyrovsergey.news.ui.fragments.NetworkDataCategoryListeners
 
 @InjectViewState
 class CategoryPresenter : MvpPresenter<CategoryView>(), NetworkDataCategoryListeners {
 
-    private val networkData = App.component.getNetworkData()
-    private val repository = App.component.getRepository()
+    private val networkData = App.getInstance().getComponent().getNetworkData()
+    private val repository = App.getInstance().getComponent().getRepository()
 
     fun getGeneralList(): List<ArticlesItem> = repository.generalList
     fun getEntertainmentList(): List<ArticlesItem> = repository.entertainmentList
@@ -42,7 +42,7 @@ class CategoryPresenter : MvpPresenter<CategoryView>(), NetworkDataCategoryListe
     }
 }
 
-interface CategoryView: MvpView {
+interface CategoryView : MvpView {
     fun showMessage(message: String)
     fun updateListArticles(page: Int)
 }

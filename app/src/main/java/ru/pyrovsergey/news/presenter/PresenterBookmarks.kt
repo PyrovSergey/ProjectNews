@@ -10,7 +10,7 @@ import ru.pyrovsergey.news.model.dto.ArticlesItem
 @InjectViewState
 class BookmarksPresenter : MvpPresenter<BookmarksView>(), BookmarksListener {
 
-    private val repository = App.component.getRepository()
+    private val repository = App.getInstance().getComponent().getRepository()
 
     fun getBookmarks(): List<ArticlesItem> = repository.bookmarksArticlesList
 

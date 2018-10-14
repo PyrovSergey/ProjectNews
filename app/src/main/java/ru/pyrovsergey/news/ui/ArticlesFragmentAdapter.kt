@@ -17,7 +17,6 @@ import org.ocpsoft.prettytime.PrettyTime
 import ru.pyrovsergey.news.R
 import ru.pyrovsergey.news.di.App
 import ru.pyrovsergey.news.model.dto.ArticlesItem
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ArticlesFragmentAdapter(private var listArticles: List<ArticlesItem>) : RecyclerView.Adapter<ArticlesFragmentAdapter.ViewHolder>() {
@@ -42,7 +41,7 @@ class ArticlesFragmentAdapter(private var listArticles: List<ArticlesItem>) : Re
         }
         Picasso.get().load("https://besticon-demo.herokuapp.com/icon?url=$baseUrl&size=32..64..64").into(holder.imageSourceView)
         holder.cardView.setOnClickListener { v ->
-            if (App.instance.checkInternetConnection()) {
+            if (App.getInstance().checkInternetConnection()) {
                 WebActivity.startWebActivity(article)
             }
         }
@@ -56,36 +55,37 @@ class ArticlesFragmentAdapter(private var listArticles: List<ArticlesItem>) : Re
         val popupMenu = popupMenu {
             section {
                 item {
-                    label = App.context.getString(R.string.share)
+                    label = App.getInstance().getString(R.string.share)
                     icon = R.drawable.ic_share_black_24dp
                     callback = {
                         pop.share(articlesItem)
                     }
                 }
                 item {
-                    label = App.context.getString(R.string.copy)
-                    iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_content_copy_black_24dp) //optional
+                    label = App.getInstance().getString(R.string.copy)
+                    iconDrawable = ContextCompat.getDrawable(App.getInstance().getContext(), R.drawable.ic_content_copy_black_24dp)
                     callback = {
                         pop.copy(articlesItem)
                     }
                 }
                 item {
-                    label = App.context.getString(R.string.open_in_browser)
-                    iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_browser_24dp) //optional
+                    label = App.getInstance().getContext().getString(R.string.open_in_browser)
+                    iconDrawable = ContextCompat.getDrawable(App.getInstance().getContext(), R.drawable.ic_browser_24dp)
                     callback = {
                         pop.openInBrowser(articlesItem)
                     }
                 }
                 item {
-                    label = if (!pop.inBookmark(articlesItem)) App.context.getString(R.string.add_to_bookmarks) else App.context.getString(R.string.remove_from_bookmarks)
-                    iconDrawable = ContextCompat.getDrawable(App.context, R.drawable.ic_collections_bookmark_black_24dp) //optional
+                    label = if (!pop.inBookmark(articlesItem)) App.getInstance().getContext().getString(R.string.add_to_bookmarks)
+                    else App.getInstance().getContext().getString(R.string.remove_from_bookmarks)
+                    iconDrawable = ContextCompat.getDrawable(App.getInstance().getContext(), R.drawable.ic_collections_bookmark_black_24dp)
                     callback = {
                         pop.bookmarks(articlesItem)
                     }
                 }
             }
         }
-        popupMenu.show(App.context, view)
+        popupMenu.show(App.getInstance().getContext(), view)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

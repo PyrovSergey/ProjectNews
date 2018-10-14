@@ -76,7 +76,7 @@ class WebActivity : AppCompatActivity() {
     companion object {
         private const val KEY_ARTICLE = "ru.pyrovsergey.news_key_article"
         fun startWebActivity(article: ArticlesItem) {
-            val context = App.context
+            val context = App.getInstance().getContext()
             val intent = Intent(context, WebActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             val bundle = Bundle()

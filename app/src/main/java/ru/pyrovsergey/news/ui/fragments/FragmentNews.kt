@@ -61,7 +61,7 @@ class FragmentNews : MvpAppCompatFragment(), NewsView, SwipeRefreshLayout.OnRefr
     }
 
     override fun showErrorMessage(error: String) {
-        App.instance.checkInternetConnection()
+        App.getInstance().checkInternetConnection()
         swipe.isRefreshing = false
     }
 }

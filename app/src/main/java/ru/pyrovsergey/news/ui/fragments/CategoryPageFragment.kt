@@ -55,12 +55,11 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
     }
 
     private fun getCategory(position: Int): String {
-        return App.context.resources.getStringArray(R.array.tab_array)[position - 1]
+        return App.getInstance().getContext().resources.getStringArray(R.array.tab_array)[position - 1]
     }
 
     override fun updateListArticles(page: Int) {
         adapter.updateAdapter(getItemPlaceList(page))
-        //recyclerView.adapter = ArticlesFragmentAdapter(getItemPlaceList(page))
     }
 
     companion object {
@@ -76,6 +75,6 @@ class CategoryPageFragment : MvpAppCompatFragment(), CategoryView {
     }
 
     override fun showMessage(message: String) {
-        App.instance.checkInternetConnection()
+        App.getInstance().checkInternetConnection()
     }
 }

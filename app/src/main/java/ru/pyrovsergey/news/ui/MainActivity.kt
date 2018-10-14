@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.View
@@ -27,6 +28,7 @@ import ru.pyrovsergey.news.ui.fragments.FragmentCategory
 import ru.pyrovsergey.news.ui.fragments.FragmentNews
 import ru.pyrovsergey.news.ui.fragments.FragmentNewsSearch
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
+import ru.terrakok.cicerone.commands.Command
 
 
 class MainActivity : MvpAppCompatActivity(), HeadView {
@@ -54,7 +56,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         }
         presenter.prepareScreen()
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        App.instance.checkInternetConnection()
+        App.getInstance().checkInternetConnection()
         Toasty.Config.getInstance()
                 .setSuccessColor(getColor(R.color.colorBlack))
                 .setTextColor(getColor(R.color.colorWhite))
@@ -78,15 +80,19 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
         override fun showSystemMessage(message: String?) {
             Toasty.error(this@MainActivity, message!!, 0, true).show()
         }
+
+        override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
+            fragmentTransaction?.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        App.instance.getNavigationHolder().setNavigator(navigator)
+        App.getInstance().getNavigationHolder().setNavigator(navigator)
     }
 
     override fun onPause() {
-        App.instance.getNavigationHolder().removeNavigator()
+        App.getInstance().getNavigationHolder().removeNavigator()
         super.onPause()
     }
 
@@ -106,7 +112,7 @@ class MainActivity : MvpAppCompatActivity(), HeadView {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                if (App.instance.checkInternetConnection()) {
+                if (App.getInstance().checkInternetConnection()) {
                     presenter.clickSearchList(query)
                 }
                 return false

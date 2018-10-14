@@ -22,7 +22,7 @@ class Repository {
     var foundArticlesList: List<ArticlesItem> = mutableListOf()
     var bookmarksArticlesList: List<ArticlesItem> = mutableListOf()
 
-    private var bookmarkDao = App.database.bookmarksDao()
+    private var bookmarkDao = App.getInstance().getDatabase().bookmarksDao()
 
     var listener: BookmarksListener? = null
 
@@ -45,8 +45,8 @@ class Repository {
         bookmarkDao.getAllBookmarks()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { employees ->
-                    bookmarksArticlesList = employees
+                .subscribe { articlesList ->
+                    bookmarksArticlesList = articlesList
                     if (listener != null) {
                         listener!!.update()
                     }

@@ -8,7 +8,7 @@ import ru.pyrovsergey.news.di.App
 
 @InjectViewState
 class HeadPresenter : MvpPresenter<HeadView>() {
-    private val router = App.instance.getRouter()
+    private val router = App.getInstance().getRouter()
     private var firstCall = true
 
     fun prepareScreen() {

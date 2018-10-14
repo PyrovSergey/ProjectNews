@@ -16,12 +16,13 @@ import ru.terrakok.cicerone.Router
 class App : Application() {
 
     companion object {
-        lateinit var component: AppComponent
+        private lateinit var component: AppComponent
         @SuppressLint("StaticFieldLeak")
-        lateinit var instance: App
+        private lateinit var instance: App
         @SuppressLint("StaticFieldLeak")
-        lateinit var context: Context
-        lateinit var database: AppDatabase
+        private lateinit var context: Context
+        private lateinit var database: AppDatabase
+        fun getInstance(): App = instance
     }
 
     private lateinit var cicerone: Cicerone<Router>
@@ -37,6 +38,9 @@ class App : Application() {
 
     fun getNavigationHolder(): NavigatorHolder = cicerone.navigatorHolder
     fun getRouter(): Router = cicerone.router
+    fun getContext(): Context = context
+    fun getDatabase(): AppDatabase = database
+    fun getComponent(): AppComponent = component
 
     private fun isInternetAvailable(): Boolean {
         val connectivityManager: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

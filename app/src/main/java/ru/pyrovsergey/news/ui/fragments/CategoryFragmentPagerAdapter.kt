@@ -17,7 +17,7 @@ class CategoryFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(f
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return App.context.resources.getStringArray(R.array.tab_array_title)[position]
+        return App.getInstance().getContext().resources.getStringArray(R.array.tab_array_title)[position]
     }
 
     companion object {

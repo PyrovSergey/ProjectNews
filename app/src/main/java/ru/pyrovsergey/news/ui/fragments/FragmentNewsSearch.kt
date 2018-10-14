@@ -46,10 +46,6 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun updateFoundArticles() {
         val list = presenter.getFoundArticles()
         if (list.isEmpty()) {
@@ -62,6 +58,6 @@ class FragmentNewsSearch : MvpAppCompatFragment(), NewsSearchView {
     }
 
     override fun showMessage(message: String) {
-        App.instance.checkInternetConnection()
+        App.getInstance().checkInternetConnection()
     }
 }
