@@ -15,6 +15,7 @@ News aggregator application for android
  - Crashlytics
  - Toasty
  - Picasso
+ - Cicerone
  - PrettyTime
  
 ### Installation
